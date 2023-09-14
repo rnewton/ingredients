@@ -236,7 +236,7 @@ func (r *Recipe) parseRecipe() (rerr error) {
 
 		// get comment
 		if len(lineInfo.MeasureInString) > 0 && len(lineInfo.IngredientsInString) > 0 {
-			lineInfo.Ingredient.Comment = getOtherInBetweenPositions(lineInfo.Line, lineInfo.MeasureInString[0], lineInfo.IngredientsInString[0])
+			lineInfo.Ingredient.Comment = getOtherInBetweenPositions(lineInfo)
 		}
 
 		// normalize into cups

@@ -9,8 +9,6 @@ import (
 	"strconv"
 	"strings"
 	"unicode/utf8"
-
-	log "github.com/schollz/logger"
 )
 
 // ConvertStringToNumber
@@ -179,19 +177,14 @@ func getWordPositions(s string, corpus []string) (wordPositions []WordPosition) 
 }
 
 // getOtherInBetweenPositions returns the word positions comment string in the ingredients
-func getOtherInBetweenPositions(s string, pos1, pos2 WordPosition) (other string) {
-	if pos1.Position > pos2.Position {
-		return
+func getOtherInBetweenPositions(l LineInfo) (other string) {
+	s := strings.Replace(l.Line, l.Ingredient.Name, "", 1)
+	s = strings.Replace(s, l.Ingredient.Measure.Name, "", 1)
+	for _, pos := range l.AmountInString {
+		s = strings.Replace(s, pos.Word, "", 1)
 	}
-	defer func() {
-		if r := recover(); r != nil {
-			log.Error(s, pos1, pos2)
-			log.Error(r)
-		}
-	}()
-	other = s[pos1.Position+len(pos1.Word)+1 : pos2.Position]
-	other = strings.TrimSpace(other)
-	return
+
+	return strings.TrimSpace(s)
 }
 
 // SanitizeLine removes parentheses, trims the line, converts to lower case,
@@ -205,6 +198,7 @@ func SanitizeLine(s string) string {
 	s = strings.Replace(s, "butter milk", "buttermilk", -1)
 	s = strings.Replace(s, "bicarbonate of soda", "baking soda", -1)
 	s = strings.Replace(s, "soda bicarbonate", "baking soda", -1)
+	s = strings.Replace(s, "ears of", "ears", -1)
 
 	// remove parentheses
 	re := regexp.MustCompile(`(?s)\((.*)\)`)
