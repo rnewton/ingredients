@@ -8,7 +8,7 @@ import (
 	"io/ioutil"
 	"os"
 
-	"github.com/schollz/ingredients"
+	"github.com/rnewton/ingredients"
 	log "github.com/schollz/logger"
 )
 

@@ -12,7 +12,7 @@ import (
 	"runtime"
 	"strings"
 
-	"github.com/schollz/ingredients"
+	"github.com/rnewton/ingredients"
 	log "github.com/schollz/logger"
 	"github.com/schollz/progressbar/v3"
 )
